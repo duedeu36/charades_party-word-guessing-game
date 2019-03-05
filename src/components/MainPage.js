@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 class MainPage extends Component {
   state = {
     // words: [],
-    randomWords: [],
+    // randomWords: [],
     inputValue: ''
   };
 
@@ -22,6 +22,10 @@ class MainPage extends Component {
     this.props.words.push(this.state.inputValue);
     // this.props.addWords(this.props.words);
     console.log('reducer words: ', this.props.words);
+  };
+
+  selectPlayer = () => {
+    this.props.selectPlayer();
   };
 
   randomWordHandler = () => {
@@ -70,7 +74,11 @@ class MainPage extends Component {
                 >
                   Add word
                 </button>{' '}
-                <button className="btn btn-info" style={{}}>
+                <button
+                  className="btn btn-info"
+                  style={{}}
+                  onClick={this.selectPlayer}
+                >
                   Random player
                 </button>{' '}
                 <button
@@ -98,13 +106,16 @@ class MainPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  words: state.reducer1.words
+  words: state.reducer1.words,
+  players: state.reducer1.players
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     playedWords: played => dispatch({ type: 'PLAYED_WORDS', data: played }),
-    addWords: words => dispatch({ type: 'ADD_WORDS', data: words })
+    addWords: words => dispatch({ type: 'ADD_WORDS', data: words }),
+    selectPlayer: selectPlayer =>
+      dispatch({ type: 'SELECT_PLAYER', data: selectPlayer })
   };
 };
 

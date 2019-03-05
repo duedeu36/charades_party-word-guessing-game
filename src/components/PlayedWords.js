@@ -7,11 +7,12 @@ class PlayedWords extends Component {
     return (
       <div className="container">
         <div className="mb-3 bg bg-light p-3">
-          {this.props.playedWords.map(words => {
-            return (
-              <button className="btn btn-warning disabled">{words}</button>
-            );
-          })}
+          {this.props.playedWords &&
+            this.props.playedWords.map(words => {
+              return (
+                <button className="btn btn-warning disabled">{words}</button>
+              );
+            })}
         </div>
       </div>
     );

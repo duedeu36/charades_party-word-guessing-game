@@ -28,6 +28,17 @@ export default function(state = initialState, action) {
         ...state,
         players: players
       };
+    case 'SELECT_PLAYER':
+      {
+        let players = [...state.players];
+        let randomPlayer = players[Math.floor(Math.random() * players.length)];
+        console.log(randomPlayer);
+      }
+
+      return {
+        ...state,
+        players: players
+      };
     case 'ADD_WORDS':
       alert();
       let words = [...state.words];
