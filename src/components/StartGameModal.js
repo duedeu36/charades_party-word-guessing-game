@@ -33,7 +33,6 @@ class StartGameModal extends Component {
 
   addPlayerHandler = () => {
     this.props.addPlayers(this.state.inputValue);
-    console.log(this.state.inputValue);
   };
 
   render() {

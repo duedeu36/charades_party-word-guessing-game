@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UsedWords from './UsedWords';
+import PlayedWords from './PlayedWords';
 import ScoreBoard from './ScoreBoard';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 class MainPage extends Component {
   state = {
-    words: [],
+    // words: [],
     randomWords: [],
     inputValue: ''
   };
@@ -19,24 +19,26 @@ class MainPage extends Component {
   };
 
   addWordHandler = () => {
-    this.state.words.push(this.state.inputValue);
-    console.log('words: ', this.state.words);
+    this.props.words.push(this.state.inputValue);
+    // this.props.addWords(this.props.words);
+    console.log('reducer words: ', this.props.words);
   };
 
   randomWordHandler = () => {
-    var words = [...this.state.words];
-    console.log('words: ', words);
+    var words = [...this.props.words];
+    console.log('spread operator words: ', words);
     var randomWord = words[Math.floor(Math.random() * words.length)];
     console.log('randomWord: ', randomWord);
     for (var i = 0; i < words.length; i++) {
-      if (words[i] === randomWord) {
-        words.splice(i, 1);
+      if (this.props.words[i] === randomWord) {
+        this.props.words.splice(i, 1);
       }
     }
+
     this.setState({
-      words: words,
       randomWord: randomWord
     });
+    this.props.playedWords(this.state.randomWord);
   };
 
   render() {
@@ -85,8 +87,8 @@ class MainPage extends Component {
             </div>
           </div>
         </div>
-        <UsedWords />
         <ScoreBoard />
+        <PlayedWords />
         <Link to="/" className="float-right mb-5">
           <button className="btn btn-primary">Back</button>
         </Link>
@@ -95,18 +97,20 @@ class MainPage extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   inputValue: state.reducer1.inputValue
-// });
+const mapStateToProps = state => ({
+  words: state.reducer1.words
+});
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     inputValue: input => dispatch({ type: 'INPUT_VALUE', data: input })
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    playedWords: played => dispatch({ type: 'PLAYED_WORDS', data: played }),
+    addWords: words => dispatch({ type: 'ADD_WORDS', data: words })
+  };
+};
 
-export default connect()(MainPage);
-// null,
-// mapStateToProps,
-// mapDispatchToProps
-// null
+export default connect(
+  // null,
+  mapStateToProps,
+  mapDispatchToProps
+  // null
+)(MainPage);
