@@ -25,7 +25,7 @@ class StartGameModal extends Component {
     }));
   }
 
-  inputValue = e => {
+  inputValueHandler = e => {
     this.setState({
       inputValue: e.target.value
     });
@@ -51,8 +51,9 @@ class StartGameModal extends Component {
           <ModalBody>
             <div>
               <input
-                onClick={this.inputValue}
-                // value={this.state.inputValue}
+                type="text"
+                value={this.state.value}
+                onChange={this.inputValueHandler}
                 className="w-100"
                 style={{
                   padding: '15px',

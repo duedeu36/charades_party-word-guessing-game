@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
       alert();
       let players = [...state.players];
       players.push({
-        // id: 4,
+        id: 4,
         name: action.data,
         score: 0
       });
