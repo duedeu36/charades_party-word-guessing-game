@@ -15,21 +15,15 @@ class ScoreBoard extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Otto</td>
-              <td>33</td>
-            </tr>
-            <tr>
-              <th>2</th>
-              <td>Thornton</td>
-              <td>22</td>
-            </tr>
-            <tr>
-              <th>3</th>
-              <td>the Bird</td>
-              <td>41</td>
-            </tr>
+            {this.props.players.map(player => {
+              return (
+                <tr key={player.id}>
+                  <th>{player.id}</th>
+                  <td>{player.name}</td>
+                  <td>{player.score}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       </div>

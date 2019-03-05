@@ -9,16 +9,23 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    // case 'INPUT_VALUE':
+    //   return {
+    //     ...state,
+    //     inputValue: inputValue
+    //   };
     case 'ADD_PLAYERS':
+      alert();
       let players = [...state.players];
       players.push({
-        id: 4,
-        name: 'John',
+        // id: 4,
+        name: action.data,
         score: 0
       });
+      console.log(state.players);
       return {
         ...state,
-        players: state.players
+        players: players
       };
     default:
       return state;

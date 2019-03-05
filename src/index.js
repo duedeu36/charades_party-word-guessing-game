@@ -5,14 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from '../src/reducers/reducer1';
+import rootReducer from '../src/reducers';
 import { Provider } from 'react-redux';
 
 const store = createStore(
   rootReducer,
 
   compose(
-    applyMiddleware(thunk),
+    // applyMiddleware(thunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

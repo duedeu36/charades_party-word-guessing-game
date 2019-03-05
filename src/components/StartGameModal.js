@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 
 class StartGameModal extends Component {
   state = {
-    players: []
+    // players: []
+    inputValue: ''
   };
 
   constructor(props) {
@@ -24,7 +25,16 @@ class StartGameModal extends Component {
     }));
   }
 
-  addPlayersHandler = () => {};
+  inputValue = e => {
+    this.setState({
+      inputValue: e.target.value
+    });
+  };
+
+  addPlayerHandler = () => {
+    this.props.addPlayers(this.state.inputValue);
+    console.log(this.state.inputValue);
+  };
 
   render() {
     return (
@@ -41,6 +51,8 @@ class StartGameModal extends Component {
           <ModalBody>
             <div>
               <input
+                onClick={this.inputValue}
+                // value={this.state.inputValue}
                 className="w-100"
                 style={{
                   padding: '15px',
@@ -50,6 +62,7 @@ class StartGameModal extends Component {
                 placeholder="Enter player here"
               />
               <i
+                onClick={this.addPlayerHandler}
                 className="fas fa-user-plus"
                 style={{
                   cursor: 'pointer',
@@ -58,7 +71,6 @@ class StartGameModal extends Component {
                   fontSize: '35px',
                   margin: '15px'
                 }}
-                onClick={this.addPlayersHandler}
               />
             </div>
             <ScoreBoard />
@@ -78,19 +90,19 @@ class StartGameModal extends Component {
     );
   }
 }
+// const mapStateToProps = state => ({
+//   players: state.reducer1.players
+// });
 
-const mapStateToProps = state => ({
-  players: state.reducer1.players
-});
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     players: () => dispatch({ type: 'SET_PLAYERS' })
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    addPlayers: player => dispatch({ type: 'ADD_PLAYERS', data: player })
+  };
+};
 
 export default connect(
-  mapStateToProps,
-  // mapDispatchToProps
-  null
+  null,
+  // mapStateToProps,
+  mapDispatchToProps
+  // null
 )(StartGameModal);

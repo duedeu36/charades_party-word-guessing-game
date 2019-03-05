@@ -3,6 +3,7 @@ import UsedWords from './UsedWords';
 import ScoreBoard from './ScoreBoard';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { connect } from 'react-redux';
 
 class MainPage extends Component {
   state = {
@@ -94,4 +95,18 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+// const mapStateToProps = state => ({
+//   inputValue: state.reducer1.inputValue
+// });
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     inputValue: input => dispatch({ type: 'INPUT_VALUE', data: input })
+//   };
+// };
+
+export default connect()(MainPage);
+// null,
+// mapStateToProps,
+// mapDispatchToProps
+// null
