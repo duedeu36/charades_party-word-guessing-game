@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PlayedWords from './PlayedWords';
 import ScoreBoard from './ScoreBoard';
+import Countdown from './Countdown';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -24,8 +25,8 @@ class MainPage extends Component {
     console.log('reducer words: ', this.props.words);
   };
 
-  selectPlayer = () => {
-    this.props.selectPlayer();
+  activePlayerHandler = () => {
+    this.props.activePlayer();
   };
 
   randomWordHandler = () => {
@@ -55,43 +56,47 @@ class MainPage extends Component {
                 {this.state.randomWord}
               </h1>
             </div>
-            <div className="">
-              <input
-                className="w-100"
-                style={{
-                  padding: '10px',
-                  fontSize: '30px',
-                  textAlign: 'center'
-                }}
-                placeholder="Enter words here"
-                onChange={this.inputValue}
-              />
-              <div className="m-3">
-                <button
-                  className="btn btn-primary"
-                  style={{}}
-                  onClick={this.addWordHandler}
-                >
-                  Add word
-                </button>{' '}
-                <button
-                  className="btn btn-info"
-                  style={{}}
-                  onClick={this.selectPlayer}
-                >
-                  Random player
-                </button>{' '}
-                <button
-                  className="btn btn-success"
-                  style={{}}
-                  onClick={this.randomWordHandler}
-                >
-                  Dice word
-                </button>{' '}
-                <button className="btn btn-danger" style={{}}>
-                  Delete word
-                </button>{' '}
+
+            <div className="container">
+              <div className="row">
+                <input
+                  className="w-100"
+                  style={{
+                    padding: '10px',
+                    fontSize: '30px',
+                    textAlign: 'center'
+                  }}
+                  placeholder="Enter words here"
+                  onChange={this.inputValue}
+                />
+                <Countdown />
               </div>
+            </div>
+            <div className="m-3">
+              <button
+                className="btn btn-primary"
+                style={{}}
+                onClick={this.addWordHandler}
+              >
+                Add word
+              </button>{' '}
+              <button
+                className="btn btn-info"
+                style={{}}
+                onClick={this.activePlayerHandler}
+              >
+                Random player
+              </button>{' '}
+              <button
+                className="btn btn-success"
+                style={{}}
+                onClick={this.randomWordHandler}
+              >
+                Dice word
+              </button>{' '}
+              <button className="btn btn-danger" style={{}}>
+                Delete word
+              </button>{' '}
             </div>
           </div>
         </div>
@@ -106,16 +111,15 @@ class MainPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  words: state.reducer1.words,
-  players: state.reducer1.players
+  words: state.reducer1.words
+  // players: state.reducer1.players
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     playedWords: played => dispatch({ type: 'PLAYED_WORDS', data: played }),
     addWords: words => dispatch({ type: 'ADD_WORDS', data: words }),
-    selectPlayer: selectPlayer =>
-      dispatch({ type: 'SELECT_PLAYER', data: selectPlayer })
+    activePlayer: () => dispatch({ type: 'ACTIVE_PLAYER' })
   };
 };
 

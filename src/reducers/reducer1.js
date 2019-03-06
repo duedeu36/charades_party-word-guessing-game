@@ -28,16 +28,20 @@ export default function(state = initialState, action) {
         ...state,
         players: players
       };
-    case 'SELECT_PLAYER':
-      {
-        let players = [...state.players];
-        let randomPlayer = players[Math.floor(Math.random() * players.length)];
-        console.log(randomPlayer);
-      }
+    case 'ACTIVE_PLAYER':
+      // players2 cannot be players
+      let players2 = [...state.players];
+      players2.map(player => {
+        player.active = false;
+      });
+      let randomNumber = Math.floor(Math.random() * players2.length);
+      let randomPlayer = players2[randomNumber];
+      console.log(randomPlayer);
+      players2[randomNumber].active = true;
 
       return {
         ...state,
-        players: players
+        players: players2
       };
     case 'ADD_WORDS':
       alert();

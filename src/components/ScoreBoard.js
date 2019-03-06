@@ -15,15 +15,21 @@ class ScoreBoard extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.players.map(player => {
-              return (
-                <tr key={player.id}>
-                  <th>{player.id}</th>
-                  <td>{player.name}</td>
-                  <td>{player.score}</td>
-                </tr>
-              );
-            })}
+            {this.props.players &&
+              this.props.players.map(player => {
+                return (
+                  <tr
+                    key={player.id}
+                    className={
+                      player.active ? 'bg bg-secondary text-white' : ''
+                    }
+                  >
+                    <th>{player.id}</th>
+                    <td>{player.name}</td>
+                    <td>{player.score}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </Table>
       </div>
