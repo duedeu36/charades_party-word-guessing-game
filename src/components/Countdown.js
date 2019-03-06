@@ -1,42 +1,52 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 
 class Countdown extends Component {
   state = {
-    secondsCountdown: 120
+    seconds: 2
   };
 
   getSeconds = () => {
-    return '0' + (this.state.secondsCountdown % 60);
+    return '0' + (this.state.seconds % 60);
   };
 
   getMinutes = () => {
-    return '0' + Math.floor(this.state.secondsCountdown / 60);
+    return Math.floor(this.state.seconds / 60);
   };
-
+  
   handleStartCounter = () => {
-    setInterval(function() {
-      this.setState({
-        secondsCountdown: -1
-      });
+    var _this = this;
+    this.incrementer = setInterval(function() {
+      _this.setState({
+        seconds: _this.state.seconds - 1
+      })
     }, 1000);
   };
-
+  
   handleStopCounter = () => {
-    alert('stopping');
+    clearInterval(this.incrementer);
   };
+
+  timeOver = () =>{
+    if(this.state.seconds == -1) {
+      alert('Time over! Next player is John')
+      this.state.seconds = 2;
+      clearInterval(this.incrementer);
+    }
+  }
 
   render() {
     return (
       <div className="container">
         <div className="row">
-          <h2>
-            Time: {this.getMinutes().slice(-2)}:{this.getSeconds().slice(-2)}{' '}
+          <h2 onChange={this.timeOver()}>
+            Time: {this.getMinutes()}:{this.getSeconds().slice(-2)}{' '}
             min
           </h2>{' '}
           <button className="btn btn-danger" onClick={this.handleStartCounter}>
             Start
           </button>
-          <button className="btn btn-primary" onClick={this.handlerStopCounter}>
+          <button className="btn btn-primary" onClick={this.handleStopCounter}>
             Stop
           </button>
         </div>
