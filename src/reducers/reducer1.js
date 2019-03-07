@@ -5,7 +5,8 @@ const initialState = {
     { id: 3, name: 'Alex', score: 7, active: false }
   ],
   words: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-  playedWords: ['Katze', 'Auto', 'Aschenbecher']
+  playedWords: ['Katze', 'Auto', 'Aschenbecher'],
+  randomWord: ''
 };
 
 export default function(state = initialState, action) {
@@ -38,21 +39,36 @@ export default function(state = initialState, action) {
       let randomPlayer = players2[randomNumber];
       console.log(randomPlayer);
       players2[randomNumber].active = true;
-
       return {
         ...state,
         players: players2
       };
     case 'ADD_WORDS':
-      alert();
       let words = [...state.words];
       words.push(action.data);
       return {
         ...state,
         words: words
       };
+    case 'DICE_WORDS':
+      // words2 cannot be words
+      let words2 = [...state.words];
+      console.log(state.randomWord);
+      console.log('spread operator words: ', words2);
+      var randomWord = words2[Math.floor(Math.random() * words2.length)];
+      console.log('randomWord: ', randomWord);
+      console.log('spread operator words: ', words2);
+      for (var i = 0; i < words2.length; i++) {
+        if (words2[i] === randomWord) {
+          words2.splice(i, 1);
+        }
+      }
+      return {
+        ...state,
+        words: words2,
+        randomWord: randomWord
+      };
     case 'PLAYED_WORDS':
-      alert();
       let playedWords = [...state.playedWords];
       playedWords.push(action.data);
       return {

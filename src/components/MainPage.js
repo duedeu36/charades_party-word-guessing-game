@@ -29,21 +29,9 @@ class MainPage extends Component {
     this.props.activePlayer();
   };
 
-  randomWordHandler = () => {
-    var words = [...this.props.words];
-    console.log('spread operator words: ', words);
-    var randomWord = words[Math.floor(Math.random() * words.length)];
-    console.log('randomWord: ', randomWord);
-    for (var i = 0; i < words.length; i++) {
-      if (this.props.words[i] === randomWord) {
-        this.props.words.splice(i, 1);
-      }
-    }
-
-    this.setState({
-      randomWord: randomWord
-    });
-    this.props.playedWords(this.state.randomWord);
+  diceWordHandler = () => {
+    this.props.diceWords();
+    this.props.playedWords(this.props.randomWord);
   };
 
   render() {
@@ -53,7 +41,7 @@ class MainPage extends Component {
           <div className="col align-self-center">
             <div className="mt-5">
               <h1 className="p-3 bg-light text-center">
-                {this.state.randomWord}
+                {this.props.randomWord}
               </h1>
             </div>
 
@@ -90,7 +78,7 @@ class MainPage extends Component {
               <button
                 className="btn btn-success"
                 style={{}}
-                onClick={this.randomWordHandler}
+                onClick={this.diceWordHandler}
               >
                 Dice word
               </button>{' '}
@@ -111,7 +99,8 @@ class MainPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  words: state.reducer1.words
+  words: state.reducer1.words,
+  randomWord: state.reducer1.randomWord
   // players: state.reducer1.players
 });
 
@@ -119,7 +108,8 @@ const mapDispatchToProps = dispatch => {
   return {
     playedWords: played => dispatch({ type: 'PLAYED_WORDS', data: played }),
     addWords: words => dispatch({ type: 'ADD_WORDS', data: words }),
-    activePlayer: () => dispatch({ type: 'ACTIVE_PLAYER' })
+    activePlayer: () => dispatch({ type: 'ACTIVE_PLAYER' }),
+    diceWords: () => dispatch({ type: 'DICE_WORDS' })
   };
 };
 

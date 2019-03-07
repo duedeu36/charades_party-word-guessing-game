@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 
 class Countdown extends Component {
   state = {
-    seconds: 2
+    seconds: 45
   };
 
   getSeconds = () => {
@@ -30,7 +30,7 @@ class Countdown extends Component {
   timeOver = () =>{
     if(this.state.seconds == -1) {
       alert('Time over! Next player is John')
-      this.state.seconds = 2;
+      this.state.seconds = 5;
       clearInterval(this.incrementer);
     }
   }
