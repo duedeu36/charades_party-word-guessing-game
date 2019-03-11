@@ -5,7 +5,7 @@ const initialState = {
     { id: 3, name: 'Alex', score: 7, active: false }
   ],
   words: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-  playedWords: ['Katze', 'Auto', 'Aschenbecher'],
+  playedWords: ['car', 'bottle', 'snowball'],
   randomWord: ''
 };
 
@@ -62,7 +62,7 @@ export default function(state = initialState, action) {
         if (words2[i] === randomWord) {
           words2.splice(i, 1);
         }
-      }
+      };
       return {
         ...state,
         words: words2,

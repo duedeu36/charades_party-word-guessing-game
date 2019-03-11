@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 
 class Countdown extends Component {
   state = {
-    seconds: 45
+    seconds: 15
   };
 
   getSeconds = () => {

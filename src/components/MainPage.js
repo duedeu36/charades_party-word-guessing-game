@@ -10,7 +10,8 @@ class MainPage extends Component {
   state = {
     // words: [],
     // randomWords: [],
-    inputValue: ''
+    inputValue: '',
+    clicked: false
   };
 
   inputValue = e => {
@@ -32,7 +33,15 @@ class MainPage extends Component {
   diceWordHandler = () => {
     this.props.diceWords();
     this.props.playedWords(this.props.randomWord);
+
+    this.setState({
+      clicked: true
+    })
   };
+
+  playerScore = () => {
+
+  }
 
   render() {
     return (
@@ -41,7 +50,7 @@ class MainPage extends Component {
           <div className="col align-self-center">
             <div className="mt-5">
               <h1 className="p-3 bg-light text-center">
-                {this.props.randomWord}
+               {(this.state.clicked ? this.props.randomWord : 'not started yet' )}
               </h1>
             </div>
 
@@ -100,7 +109,8 @@ class MainPage extends Component {
 
 const mapStateToProps = state => ({
   words: state.reducer1.words,
-  randomWord: state.reducer1.randomWord
+  randomWord: state.reducer1.randomWord,
+  players: state.reducer1.players
   // players: state.reducer1.players
 });
 
